@@ -1,7 +1,6 @@
 /**
 * @desc:编写一个程序以确定分别由signed及unsigned限定的char、short、int
 * 与long类型变量的取值范围。采用打印标准头文件中的相应值以及直接计算两种方式实现。
-* @
 */
 
 #include <stdio.h>
@@ -10,22 +9,26 @@
 void methodOne(){
 	printf("signed char最大：%d；最小：%d\n",SCHAR_MAX,SCHAR_MIN);
 	//printf("unsigned char最大：%d；最小：%d\n",UCHAR_MAX,UCHAR_MIN);错误。无符号最小值：UCHAR_MIN  不存在
-	printf("unsigned char最大：%d；最小：%d\n", UCHAR_MAX);
+	//printf("unsigned char最大：%d\n", UCHAR_MAX);和下面的一致。
+	printf("unsigned char最大：%u\n", UCHAR_MAX);
 
 	//printf("signed short最大：%d；最小：%d\n",SSHRT_MAX,SSHRT_MIN);错误。
 	printf("signed short最大：%d；最小：%d\n", SHRT_MAX, SHRT_MIN);
 	//printf("unsigned short最大：%d；最小：%d\n",USHRT_MAX,USHRT_MIN);错误。
-	printf("unsigned short最大：%d\n", USHRT_MAX);
-	
+	//printf("unsigned short最大：%d\n", USHRT_MAX);和下面的一致。
+	printf("unsigned short最大：%u\n", USHRT_MAX);
+
 	//printf("signed int最大：%d；最小：%d\n",SINT_MAX,SINT_MIN);错误。
 	printf("signed int最大：%d；最小：%d\n", INT_MAX, INT_MIN);
 	//printf("unsigned short最大：%d；最小：%d\n", USHRT_MAX, USHRT_MIN); 错误。
-	printf("unsigned short最大：%d\n", USHRT_MAX); 
+	//printf("unsigned short最大：%d\n", USHRT_MAX); 和下面的一致。
+	printf("unsigned short最大：%u\n", USHRT_MAX);
 
 	//printf("signed long最大：%ld；最小：%ld\n",SLONG_MAX,SLONG_MIN);错误。
 	printf("signed long最大：%ld；最小：%ld\n", LONG_MAX, LONG_MIN);
 	//printf("unsigned long最大：%ld；最小：%ld\n", ULONG_MAX, ULONG_MIN); 错误。
-	printf("unsigned long最大：%ld\n", ULONG_MAX);
+	//printf("unsigned long最大：%ld\n", ULONG_MAX);错误,结果为-1。不一致。应该用无符号输出。
+	printf("unsigned long最大：%lu\n", ULONG_MAX);
 }
 //计算
 void methodTwo(){
@@ -71,16 +74,21 @@ void methodTwo(){
 	//unsigned long uLong_MIN = -(unsigned long)~0;错误。
 
 	printf("signed char最大：%d；最小：%d\n",sChar_MAX,sChar_MIN);
-	printf("unsigned char最大：%d\n",uChar_MAX);
+	printf("unsigned char最大：%u\n",uChar_MAX);
 	printf("signed short最大：%d；最小：%d\n",sShort_MAX,sShort_MIN);
-	printf("unsigned short最大：%d\n",uShort_MAX);
+	printf("unsigned short最大：%u\n",uShort_MAX);
 	printf("signed int最大：%d；最小：%d\n",sInt_MAC,sInt_MAC);
-	printf("unsigned int最大：%d\n",uInt_MAX);
+	printf("unsigned int最大：%u\n",uInt_MAX);
 	printf("signed long最大：%ld；最小：%ld\n",sLong_MAX,sLong_MIN);
-	printf("unsigned long最大：%ld\n",uLong_MAX);
+	printf("unsigned long最大：%lu\n",uLong_MAX);
 }
 int main(void){
 	methodOne();
 	methodTwo();
 	getchar();
 }
+
+// 总结几点：
+// 1.无符号没有最小值。
+// 2.强制类型转换很有用处，可以将一个数的上下文体现出来。
+// 3.输出无符号数要用\u如果用\d，当数值超出了\d所能表示的最大正整数的范围就会得到-1的结果。
