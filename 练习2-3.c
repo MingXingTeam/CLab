@@ -2,18 +2,16 @@
 //字符串中允许包含的数字包括：0-9、a~f以及A-F
 
 //十六进制的字符串是什么样子的？？
-//我觉得应该是这样的："0x12,3,0x24,。。。"
-//转换为整型值应该是这样的："18,3,36..."
+//我觉得应该是这样的："0x12"
+//转换为整型值应该是这样的："18"
 #include <stdio.h>
-#include <string.h>
 #include <Math.h>
 
-void htoi(int *s){
-	printf("%s\n", s[0]); return;
+int htoi(char *s){
 	int i,j,m,n=0;
 	char tmp[20];
 	int temp;
-
+	//保存为：['1','2']
 	for(i=0,j=0;s[i];i++){
 		if (isdigit(s[i])){//如果是数字
 			if(s[i] == 0){//并且是0
@@ -23,25 +21,25 @@ void htoi(int *s){
 			}else{
 				tmp[j++] = s[i];
 			}
-		}else{
-			for(temp=0,m=0;m<j;m++){
-				temp += pow(16,j-1)*tmp[m];
-				j--;
-			}
-			s[n++] = temp;
-
-			//重置
-			j = 0;
-			n = 0;
 		}
 	}
+	//计算结果：18
+	for (temp = 0, m = 0; m<j; m++){
+		temp += pow(16, j - m - 1)*(tmp[m] - '0');
+	}
+	return temp;
 }
 
 int main(void){
-	//int *s = "0x12,3,0x24";//常量 无法修改
-	int s[100] = {"0x12","3","0x24"};
-	//printf("%s\n",s[0]);
-	htoi(s);
+	char *s = "1021";
+	printf("%d\n",htoi(s));
+	//if ('\0'){ printf("adf"); }
 	getchar();
 	return 0;
 }
+
+// 总结几点：
+// 1.char *s = "ba"和int *a = "ba";不要混淆了
+// 2.'0'是true而'\0'是false
+// 3.常量字符串无法修改
+
