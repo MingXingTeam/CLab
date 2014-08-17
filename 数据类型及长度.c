@@ -1,9 +1,7 @@
 /**
 * @desc:编写一个程序以确定分别由signed及unsigned限定的char、short、int
 * 与long类型变量的取值范围。采用打印标准头文件中的相应值以及直接计算两种方式实现。
-* 数据类型及长度
 */
-
 #include <stdio.h>
 #include <limits.h>
 //标准头文件
